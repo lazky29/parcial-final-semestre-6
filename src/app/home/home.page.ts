@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../services/data'; // Apunta exactamente a tu archivo data.ts
+import { DataService } from '../services/data'; // Conexión con tu servicio modular
 import { 
-  IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, 
-  IonAvatar, IonLabel, IonSearchbar, IonSpinner, IonRefresher, IonRefresherContent, IonGrid, IonRow, IonCol
+  IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonSpinner, IonRefresher, IonRefresherContent,
+  IonGrid, IonRow, IonCol // Componentes obligatorios para renderizar la cuadrícula gamer
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -15,8 +15,8 @@ import {
   standalone: true,
   imports: [
     CommonModule, FormsModule,
-    IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, 
-    IonAvatar, IonLabel, IonSearchbar, IonSpinner, IonRefresher, IonRefresherContent, IonGrid, IonRow, IonCol
+    IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonSpinner, IonRefresher, IonRefresherContent,
+    IonGrid, IonRow, IonCol // Registro de componentes standalone requeridos por Angular
   ]
 })
 export class HomePage implements OnInit {
@@ -34,15 +34,24 @@ export class HomePage implements OnInit {
     this.isLoading = true;
     this.dataService.getDigimons().subscribe({
       next: (data) => {
-        this.digimons = data;
-        this.filteredDigimons = data;
+        // .slice(0, 50) recorta y restringe la lista a los primeros 50 elementos del examen
+        const limitedData = data.slice(0, 50); 
+        
+        this.digimons = limitedData;
+        this.filteredDigimons = limitedData;
         this.isLoading = false;
-        if (event) event.target.complete();
+        
+        if (event) {
+          event.target.complete(); // Cierra la animación del Refresher nativo
+        }
       },
       error: (error) => {
-        console.error('Error cargando datos', error);
+        console.error('Error cargando datos de la API:', error);
         this.isLoading = false;
-        if (event) event.target.complete();
+        
+        if (event) {
+          event.target.complete();
+        }
       }
     });
   }
@@ -50,7 +59,7 @@ export class HomePage implements OnInit {
   buscarDigimon(event: any) {
     const texto = event.target.value.toLowerCase();
     if (texto && texto.trim() !== '') {
-      // Filtro ágil directamente sobre el arreglo local [Módulo B-3]
+      // Filtrado ágil directamente sobre el arreglo local controlado de 50 elementos
       this.filteredDigimons = this.digimons.filter((digimon) => {
         return digimon.name.toLowerCase().indexOf(texto) > -1;
       });
@@ -60,7 +69,7 @@ export class HomePage implements OnInit {
   }
 
   verDetalle(digimon: any) {
-    // Navegación nativa pasando el objeto en el estado [Módulo C-2]
+    // Navegación nativa transmitiendo el objeto completo en el estado de la ruta
     this.router.navigate(['/detail', digimon.name], { state: { digimon } });
   }
 }
