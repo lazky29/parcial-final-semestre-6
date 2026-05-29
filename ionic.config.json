@@ -1,0 +1,7 @@
+{
+  "name": "mi-parcial",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

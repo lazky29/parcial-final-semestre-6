@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title style="font-weight: 900; letter-spacing: 2px;">DIGIDEX SYSTEM</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar placeholder="Buscar Digimon..." (ionInput)="buscarDigimon($event)" debounce="300"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="cargarDatos($event)">
+    <ion-refresher-content pullingText="Desliza para actualizar..." refreshingSpinner="dots"></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="isLoading" class="ion-text-center ion-padding" style="margin-top: 40px;">
+    <ion-spinner name="lines-sharp" color="primary"></ion-spinner>
+    <p style="color: #00ffcc; font-weight: bold; letter-spacing: 1px;">SINCRONIZANDO BASE DE DATOS...</p>
+  </div>
+
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col size="6" size-md="4" *ngFor="let digimon of filteredDigimons">
+        
+        <div class="gamer-card ion-padding ion-text-center" (click)="verDetalle(digimon)" style="cursor: pointer; margin-bottom: 10px;">
+          
+          <div style="display: flex; justify-content: center; margin-bottom: 8px;">
+            <img [src]="digimon.img" alt="{{ digimon.name }}" style="width: 85px; height: 85px; border-radius: 50%; border: 2px solid #00ffcc; background: #1a1f36;" />
+          </div>
+          
+          <h2 style="font-size: 1rem; font-weight: bold; margin: 4px 0; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            {{ digimon.name }}
+          </h2>
+          
+          <span class="level-badge">{{ digimon.level }}</span>
+          
+        </div>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

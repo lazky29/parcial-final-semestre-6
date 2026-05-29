@@ -1,0 +1,78 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+
+/* Configuración de tema Gamer Cyberpunk */
+:root {
+  --ion-color-primary: #00ffcc;          /* Neón Cyan */
+  --ion-color-primary-rgb: 0, 255, 204;
+  --ion-color-primary-contrast: #0d0e15; /* Fondo oscuro contraste */
+  
+  --ion-background-color: #0d0e15;       /* Fondo Oscuro Espacial */
+  --ion-text-color: #ffffff;
+}
+
+/* Efecto de Tarjeta Gamer Glow */
+.gamer-card {
+  background: linear-gradient(145deg, #141724, #1a1f36) !important;
+  border: 1px solid rgba(0, 255, 204, 0.2);
+  border-radius: 12px !important;
+  box-shadow: 0 4px 15px rgba(0, 255, 204, 0.1) !important;
+  transition: all 0.3s ease-in-out !important;
+  
+  &:hover {
+    transform: translateY(-3px);
+    border-color: #00ffcc;
+    box-shadow: 0 6px 20px rgba(0, 255, 204, 0.3) !important;
+  }
+}
+
+/* Badge de Nivel Gamer */
+.level-badge {
+  background: rgba(0, 255, 204, 0.1);
+  color: #00ffcc;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 1px solid rgba(0, 255, 204, 0.3);
+  display: inline-block;
+  margin-top: 4px;
+}
